@@ -1,10 +1,10 @@
 <template>
-    输入框
+    输入框weqe
 </template>
-<script>
-export default {
-    setup() {
+<script setup>
+// export default {
+//     setup() {
         
-    },
-}
+//     },
+// }
 </script>

@@ -31,9 +31,13 @@ router.beforeEach(async (to, from, next) => {
        } else {
            let roles = store.state.user.roles
            if(roles && roles.length === 0) {
-              let { roles }  = await store.dispatch('user/getUserinfo')
-              await store.dispatch('permission/GenerateRoutes', roles)
+              let { roles, menuList }  = await store.dispatch('user/getUserinfo')
+              // 根据角色
+            //   await store.dispatch('permission/GenerateRoutes', roles)
+              // 根据后台的返回的菜单
+              await store.dispatch('permission/GenerateRoutes', menuList)
               let addRouters = store.state.permission.addRouters
+              console.log(store.state.permission.addRouters, 'store.state.permission.addRoutersstore.state.permission.addRouters')
               addRouters.forEach(addRoute => {
                 router.addRoute(addRoute)
               }) 
