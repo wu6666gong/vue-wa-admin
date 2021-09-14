@@ -48,7 +48,7 @@ export default [
                             icon: 'svgIcon-iconyejiguanli',
                             target: 'home3',
                             id: 1,
-                            path: '/home3'
+                            path: '/home'
                         },
                         {
                             parentId: '0000000000',

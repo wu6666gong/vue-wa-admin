@@ -62,6 +62,7 @@ export default {
 }
 .avatar{
     padding: 0 10px;
+    display: inline-block;
     &:hover{
         background-color: rgba(0,0,0,.025);
     }

@@ -8,7 +8,10 @@
             />
             <menu-fold-outlined v-else class="trigger" @click="collapsedChange" />
         </div>
+
         <div class="layout-header-info">
+            <!-- 全屏幕 -->
+           <FullScreen></FullScreen>
            <!-- 头像 -->
            <Avatar></Avatar>
         </div>
@@ -18,12 +21,14 @@
 import { ref, toRefs, watch } from 'vue'
 import {MenuUnfoldOutlined,MenuFoldOutlined,} from '@ant-design/icons-vue';
 import Avatar from "./Avatar.vue";
+import FullScreen from './FullScreen.vue'
 export default {
     emits: ['update:collapsed'],
     components: {
         MenuUnfoldOutlined,
         MenuFoldOutlined,
-        Avatar
+        Avatar,
+        FullScreen
     },
     props: {
         collapsed: {

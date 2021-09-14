@@ -28,10 +28,10 @@ const rootRouter = {
   children: []
 }
 // 前端未找到页面路由（固定不用改）
-// const notFoundRouter = { 
-//   path: '/:w+',
-//   redirect: '/404'
-// }
+const notFoundRouter = { 
+  path: '/:w+',
+  redirect: '/404'
+}
 
 
 export function generatorDynamicRouter(menuList){
@@ -42,7 +42,7 @@ export function generatorDynamicRouter(menuList){
     rootRouter.children = childrenNav.sort((a, b) => a.seq - b.seq)
     menuNav.push(rootRouter)
     const routers = generator(menuNav)
-    // routers.push(notFoundRouter)
+    routers.push(notFoundRouter)
     console.log(routers,'routersroutersroutersroutersroutersroutersrouters')
     resolve({
       routers: routers
