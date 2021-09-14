@@ -87,7 +87,7 @@ export function generatorDynamicRouter(menuList){
  export const generator = (routerMap, parent) => {
   // console.log('generator function', routerMap, parent)
   return routerMap.map(item => {
-    const { title, isShow, hideChildrenInMenu, keepAlive } = item
+    const { title, isShow, keepAlive } = item
     // 获取icon
     const icon = item.icon
     const currentRouter = {
@@ -96,7 +96,9 @@ export function generatorDynamicRouter(menuList){
       // 路由名称，建议唯一
       name: item.name || item.target || '',
       // 是否设置隐藏子菜单
-      hideChildrenInMenu,
+      hideChildrenInMenu: item.hideChildrenInMenu,
+       // 是否设置了隐藏菜单
+      hidden: item.hidden,
       // 该路由对应页面的 组件  (动态加载)
       component: (constantRouterComponents[item.target]) || (modules[`../views/${item.target}`]),
       // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
@@ -106,10 +108,7 @@ export function generatorDynamicRouter(menuList){
         keepAlive
       }
     }
-    // 是否设置了隐藏菜单
-    if (isShow === '0') {
-      currentRouter.hidden = true
-    }
+   
     // 为了防止出现后端返回结果不规范，处理有可能出现拼接出两个 反斜杠
     if (!currentRouter.path.startsWith('http')) {
       currentRouter.path = currentRouter.path.replace('//', '/')

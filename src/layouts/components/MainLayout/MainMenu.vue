@@ -1,7 +1,7 @@
 <template>
     <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys" @click="handleMenuItemClick" :selectable="false">
         <template v-for="item in menus" :key="item.name">
-            <template v-if="!item.children || item.hideChildrenInMenu">
+            <template v-if="(!item.children || item.hideChildrenInMenu) && !item.hidden">
                 <a-menu-item :key="item.path" :target="item">
                     <template #icon v-if="item.meta.icon">
                       <menuIcon :icon="item.meta.icon"></menuIcon>
@@ -9,9 +9,10 @@
                     {{ item.meta && item.meta.title }}
                 </a-menu-item>
             </template>
-            <template v-else>
+            <template v-else-if="item.children && item.children.length &&!item.hideChildrenInMenu && !item.hidden">
                 <sub-menu :menu-info="item" :key="item.path" />
             </template>
+             <template v-else> </template>
         </template>
     </a-menu>
 </template>
