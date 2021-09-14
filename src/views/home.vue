@@ -1,7 +1,9 @@
 <template>
     首页
     <a-button @click="handleLogout">退出</a-button>
+    <div style="height:2000px;">测试回到顶部</div>
 </template>
+
 <script setup>
 import { userAPI } from '@/api'
 import { useRouter } from 'vue-router'

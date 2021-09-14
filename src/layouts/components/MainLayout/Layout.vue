@@ -1,6 +1,6 @@
 <template>
     <div id="main-layout">
-        <a-layout :style="{height: '100vh'}">
+        <a-layout :style="{minHeight: '100vh'}">
             <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
                 <div class="logo">
                     logo
@@ -15,11 +15,11 @@
                     :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
                 >
                     <slot></slot> 
+                    <a-back-top />
                 </a-layout-content>
             </a-layout>
         </a-layout>
     </div>
-
 </template>
 <script>
   import { ref,provide } from 'vue'

@@ -21,7 +21,7 @@ import { useRouter} from 'vue-router'
          }
         const countdownInterval =  setInterval(countdown, 1000);
         function handleBack(){
-            router.push({
+            router.replace({
                 path: '/'
             })
         }
