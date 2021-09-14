@@ -87,7 +87,7 @@ export function generatorDynamicRouter(menuList){
  export const generator = (routerMap, parent) => {
   // console.log('generator function', routerMap, parent)
   return routerMap.map(item => {
-    const { title, isShow, isHideChild, keepAlive } = item
+    const { title, isShow, hideChildrenInMenu, keepAlive } = item
     // 获取icon
     const icon = item.icon
     const currentRouter = {
@@ -95,6 +95,8 @@ export function generatorDynamicRouter(menuList){
       path: item.path || `${parent && parent.path || ''}/${item.key}`,
       // 路由名称，建议唯一
       name: item.name || item.target || '',
+      // 是否设置隐藏子菜单
+      hideChildrenInMenu,
       // 该路由对应页面的 组件  (动态加载)
       component: (constantRouterComponents[item.target]) || (modules[`../views/${item.target}`]),
       // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
@@ -108,16 +110,12 @@ export function generatorDynamicRouter(menuList){
     if (isShow === '0') {
       currentRouter.hidden = true
     }
-    // 是否设置了隐藏子菜单
-    if (isHideChild === '1') {
-      currentRouter.hideChildrenInMenu = true
-    }
     // 为了防止出现后端返回结果不规范，处理有可能出现拼接出两个 反斜杠
     if (!currentRouter.path.startsWith('http')) {
       currentRouter.path = currentRouter.path.replace('//', '/')
     }
     // 重定向
-    item.redirectUrl && (currentRouter.redirect = item.redirectUrl)
+    item.redirect && (currentRouter.redirect = item.redirect)
     // 是否有子菜单，并递归处理
     if (item.children && item.children.length > 0) {
       // Recursion

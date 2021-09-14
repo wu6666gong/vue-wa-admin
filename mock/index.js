@@ -63,8 +63,10 @@ export default [
                             title: '表单',
                             icon: 'MenuOutlined',
                             id: 3,
+                            hideChildrenInMenu: true,
                             target: 'PageView',
-                            path: '/form'
+                            path: '/form/aaa',
+                            redirect: '/form/input'
                         },
                         {
                             parentId: 3,

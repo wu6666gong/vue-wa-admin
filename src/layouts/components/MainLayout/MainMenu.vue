@@ -1,8 +1,8 @@
 <template>
     <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys" @click="handleMenuItemClick" :selectable="false">
         <template v-for="item in menus" :key="item.name">
-            <template v-if="!item.children">
-                <a-menu-item :key="item.path" :target="item.meta.target">
+            <template v-if="!item.children || item.hideChildrenInMenu">
+                <a-menu-item :key="item.path" :target="item">
                     <template #icon v-if="item.meta.icon">
                       <menuIcon :icon="item.meta.icon"></menuIcon>
                     </template>
@@ -36,18 +36,19 @@ export default {
     setup(props) {
           const route = useRoute()
           const router = useRouter()
-          const selectedKeys = ref([route.path])
+          const selectedKeys = ref(route.matched.map(item => item.path))
           const openKeys = ref([])
           const routeMatch = route.matched.map(item => item.path)
           routeMatch.shift()
           openKeys.value = routeMatch
-          watch(() => route.path, (newRoute) => {
-              selectedKeys.value = [newRoute]
+          watch(() => route.matched, (newMatched) => {
+              selectedKeys.value = newMatched.map(item => item.path)
           })
           function handleMenuItemClick(d){
+              let item = (d.item && d.item.target) || {}
               // 判断路径是http开头的打开窗口  
               if(d.key.startsWith('http')) {
-                window.open(d.key, d.item.target || '_blank')
+                window.open(d.key, item.target || '_blank')
               } else {
                 router.push({
                     path: d.key
